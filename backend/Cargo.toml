@@ -1,0 +1,30 @@
+[package]
+name = "backend"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+askama = { version = "0.12.1", features = ["with-axum"] }
+askama_axum = "0.4.0"
+axum = { version = "0.8.1", features = ["ws"] }
+sqlx = { version = "0.8.3", features = ["runtime-tokio", "sqlite"] }
+tokio = { version = "1.35.1", features = ["rt-multi-thread"] }
+tower-http = { version = "0.6.2", features = ["fs", "trace"] }
+tower-livereload = "0.9.1"
+tracing = "0.1.40"
+tracing-subscriber = { version = "0.3.18", features = ["env-filter"] }
+serde = { version = "1.0.195", features = ["derive"] }
+notify = "8.0.0"
+
+[lints.rust]
+unused_qualifications = "warn"
+
+[lints.clippy]
+pedantic = { level = "warn", priority = -1 }
+redundant_clone = "warn"
+unnecessary_self_imports = "warn"
+single_match_else = "allow"
+module_name_repetitions = "allow"
+too_many_lines = "allow"
+missing_errors_doc = "allow"
+missing_panics_doc = "allow"
