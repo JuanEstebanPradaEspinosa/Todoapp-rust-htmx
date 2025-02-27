@@ -21,7 +21,7 @@ Cargo.lock
 # node
 **/node_modules/
 /volumes
-style/output.css
+styles/output.css
 
 # vscode
 .trunk/trunk.yaml
