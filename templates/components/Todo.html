@@ -1,0 +1,50 @@
+<li
+  class="flex items-center justify-between p-2 border-b border-gray-200 last:border-none"
+>
+  <!-- Left side: Checkbox and Todo title -->
+  <div class="flex items-center space-x-3">
+    <input
+      type="checkbox"
+      class="w-5 h-5 text-blue-500 border-gray-300 rounded focus:ring focus:ring-blue-200"
+      {%
+      if
+      done
+      %}checked{%
+      endif
+      %}
+      hx-patch="/todos/{{ id }}/toggle"
+      hx-trigger="change"
+      hx-target="closest li"
+      hx-swap="outerHTML"
+    />
+
+    <span
+      class="{% if done %}line-through text-gray-400{% else %}text-gray-800{% endif %} font-medium"
+    >
+      {{ title }}
+    </span>
+  </div>
+
+  <!-- Right side: Update & Delete buttons -->
+  <div class="flex space-x-2">
+    <!-- Update Button -->
+    <button
+      class="px-3 py-1 text-sm font-medium text-white bg-yellow-500 rounded-lg hover:bg-yellow-600 transition"
+      hx-get="/todos/{{ id }}/edit"
+      hx-target="#todo-container"
+      hx-swap="innerHTML"
+    >
+      Edit
+    </button>
+
+    <!-- Delete Button -->
+    <button
+      class="px-3 py-1 text-sm font-medium text-white bg-red-500 rounded-lg hover:bg-red-600 transition"
+      hx-delete="/todos/{{ id }}"
+      hx-target="closest li"
+      hx-swap="outerHTML"
+    >
+      Delete
+    </button>
+  </div>
+</li>

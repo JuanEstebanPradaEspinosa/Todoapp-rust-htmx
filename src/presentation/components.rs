@@ -6,7 +6,7 @@ use axum::{
 };
 
 #[derive(Template)]
-#[template(path = "pages/hello.html")]
+#[template(path = "pages/Hello.html")]
 pub struct HelloTemplate;
 
 // Wrapper around Askama HTML templates to allow them to be served by axum.
@@ -30,6 +30,26 @@ where
                 .into_response(),
         }
     }
+}
+
+#[derive(Template)]
+#[template(path = "pages/Index.html")]
+pub struct LandingPage {
+    pub todo_list: TodoList,
+}
+
+#[derive(Template)]
+#[template(path = "components/TodoList.html")]
+pub struct TodoList {
+    pub todos: Vec<Todo>,
+}
+
+#[derive(Template)]
+#[template(path = "components/Todo.html")]
+pub struct Todo {
+    pub id: i64,
+    pub title: String,
+    pub done: bool,
 }
 
 // #[derive(Template)]

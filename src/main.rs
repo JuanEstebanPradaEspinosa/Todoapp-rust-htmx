@@ -55,8 +55,9 @@ async fn main() {
     // build our application
     let app_state = AppState { db_pool };
     let app = Router::new()
-        .nest_service("/styles", tower_http::services::ServeDir::new("styles"))
-        .nest("/api", configure_app_router(app_state))
+        .nest_service("/styles", tower_http::services::ServeDir::new("styles")) // Is needed to have those file access to the browser!
+        .nest_service("/assets", tower_http::services::ServeDir::new("assets"))
+        .merge(configure_app_router(app_state))
         .layer(tower_http::trace::TraceLayer::new_for_http());
 
     // This code is only compiled when in the debug mode for livereload
@@ -88,6 +89,7 @@ async fn main() {
     let listener = tokio::net::TcpListener::bind("127.0.0.1:3000")
         .await
         .unwrap();
+
     info!("listening on {:?}", listener.local_addr().unwrap());
     axum::serve(listener, app).await.unwrap();
 }

@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="node_modules/htmx.org/dist/htmx.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="/styles/output.css" rel="stylesheet" />
+    <title>ToDo List</title>
+  </head>
+  <body class="bg-gray-100 min-h-screen font-sans">
+    <div class="container mx-auto px-4 py-8 max-w-md">
+      <header class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">
+          Todo List
+        </h1>
+        <form
+          hx-post="/todos"
+          hx-target="div"
+          hx-swap="innerHTML"
+          class="flex space-x-2 mb-4"
+        >
+          <input
+            type="text"
+            name="add"
+            id="add"
+            placeholder="Add Todo"
+            class="flex-grow px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm"
+            required
+          />
+          <button
+            type="submit"
+            class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg shadow-sm transition duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+          >
+            Add
+          </button>
+        </form>
+      </header>
+      <main class="bg-white rounded-lg shadow-md p-6 min-h-[200px]">
+        <!-- here comes the list of todos -->
+        <div class="text-gray-500 italic text-center">{{ todo_list|safe }}</div>
+      </main>
+      <footer class="mt-8 text-center text-sm text-gray-500">
+        <p>Built with HTMX and Tailwind CSS</p>
+      </footer>
+    </div>
+  </body>
+</html>

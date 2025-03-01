@@ -12,7 +12,7 @@ pub struct AppState {
 
 pub fn configure_app_router(app_state: AppState) -> Router {
     Router::new()
-        .route("/", get(|| async { "Hello, world!" }))
+        .route("/", get(todo::index))
         .route("/todos", get(todo::list))
         .route("/todos", post(todo::create))
         .route("/todos/{id}", get(todo::get_todo))
