@@ -5,10 +5,7 @@ use axum::{
     response::{Html, IntoResponse, Response},
 };
 
-#[derive(Template)]
-#[template(path = "pages/Hello.html")]
-pub struct HelloTemplate;
-
+use crate::domain::todo::{Mappable, Todo};
 // Wrapper around Askama HTML templates to allow them to be served by axum.
 pub struct HtmlTemplate<T>(pub T);
 
@@ -41,21 +38,27 @@ pub struct LandingPage {
 #[derive(Template)]
 #[template(path = "components/TodoList.html")]
 pub struct TodoList {
-    pub todos: Vec<Todo>,
+    pub todos: Vec<TodoTemplate>,
 }
 
 #[derive(Template)]
 #[template(path = "components/Todo.html")]
-pub struct Todo {
+pub struct TodoTemplate {
     pub id: i64,
     pub title: String,
     pub done: bool,
 }
 
-// #[derive(Template)]
-// #[template(path = "components/todo.html")]
-// pub struct TodoTemplate {
-//     pub id: i32,
-//     pub title: String,
-//     pub completed: bool,
-// }
+impl Mappable<Todo> for TodoTemplate {
+    fn map_to(self) -> Todo {
+        Todo {
+            id: self.id,
+            title: self.title,
+            done: self.done,
+        }
+    }
+}
+
+#[derive(Template)]
+#[template(path = "pages/Hello.html")]
+pub struct HelloTemplate;

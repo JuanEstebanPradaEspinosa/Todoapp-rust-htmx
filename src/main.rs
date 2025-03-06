@@ -93,3 +93,8 @@ async fn main() {
     info!("listening on {:?}", listener.local_addr().unwrap());
     axum::serve(listener, app).await.unwrap();
 }
+
+//TODO: Adding error handling so that if somethings doesnt work it get an small error message
+//TODO: Adding Edits functionality for editing the todos like change title
+//TODO: Make the todo list look better and make use of the whole screen
+//TODO: Add Readme file for how to get the projects and use it for production etc.... so other people can use it too!

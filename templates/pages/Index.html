@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="node_modules/htmx.org/dist/htmx.min.js"></script>
+    <script src="/assets/js/htmx.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="/styles/output.css" rel="stylesheet" />
     <title>ToDo List</title>
@@ -15,15 +15,14 @@
           Todo List
         </h1>
         <form
-          hx-post="/todos"
-          hx-target="div"
-          hx-swap="innerHTML"
+          hx-post="/todos/create"
+          hx-target="#todo-list"
+          hx-swap="beforeend"
           class="flex space-x-2 mb-4"
         >
           <input
             type="text"
-            name="add"
-            id="add"
+            name="title"
             placeholder="Add Todo"
             class="flex-grow px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm"
             required

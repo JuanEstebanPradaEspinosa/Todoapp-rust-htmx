@@ -30,9 +30,8 @@
     <!-- Update Button -->
     <button
       class="px-3 py-1 text-sm font-medium text-white bg-yellow-500 rounded-lg hover:bg-yellow-600 transition"
-      hx-get="/todos/{{ id }}/edit"
-      hx-target="#todo-container"
-      hx-swap="innerHTML"
+      hx-put="/todos/{{ id }}/update"
+      hx-target="#todo-list"
     >
       Edit
     </button>
@@ -40,7 +39,7 @@
     <!-- Delete Button -->
     <button
       class="px-3 py-1 text-sm font-medium text-white bg-red-500 rounded-lg hover:bg-red-600 transition"
-      hx-delete="/todos/{{ id }}"
+      hx-delete="/todos/{{ id }}/delete"
       hx-target="closest li"
       hx-swap="outerHTML"
     >
