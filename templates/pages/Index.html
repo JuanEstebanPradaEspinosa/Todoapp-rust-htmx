@@ -3,7 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Javascript -->
     <script src="/assets/js/htmx.min.js"></script>
+    <script defer src="/assets/js/alpine.js"></script>
+    <script defer src="/assets/js/cdn.min.js"></script>
+    <!-- Stylings -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="/styles/output.css" rel="stylesheet" />
     <title>ToDo List</title>
@@ -41,6 +45,9 @@
       </main>
       <footer class="mt-8 text-center text-sm text-gray-500">
         <p>Built with HTMX and Tailwind CSS</p>
+        <div x-data="{ message: 'Alpine.js is working!' }">
+          <p x-text="message"></p>
+        </div>
       </footer>
     </div>
   </body>

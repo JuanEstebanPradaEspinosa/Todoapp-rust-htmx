@@ -1,8 +1,9 @@
 <li
+  x-data="todoItem"
   class="flex items-center justify-between p-2 border-b border-gray-200 last:border-none"
 >
-  <!-- Left side: Checkbox and Todo title -->
-  <div class="flex items-center space-x-3">
+  <!-- Todo item content -->
+  <div class="flex items-center space-x-3 flex-grow">
     <input
       type="checkbox"
       class="w-5 h-5 text-blue-500 border-gray-300 rounded focus:ring focus:ring-blue-200"
@@ -18,23 +19,62 @@
       hx-swap="outerHTML"
     />
 
+    <!-- Display mode -->
     <span
+      x-show="!editing"
       class="{% if done %}line-through text-gray-400{% else %}text-gray-800{% endif %} font-medium"
     >
       {{ title }}
     </span>
+
+    <!-- Edit mode -->
+    <form
+      x-show="editing"
+      class="flex-grow"
+      hx-post="/todos/{{ id }}/update"
+      hx-target="closest li"
+      hx-swap="outerHTML"
+    >
+      <input
+        type="text"
+        name="title"
+        value="{{ title }}"
+        class="w-full px-2 py-1 border border-gray-300 rounded focus:ring focus:ring-blue-200"
+        @keydown.escape="cancelEdit"
+        x-ref="editInput"
+      />
+    </form>
   </div>
 
-  <!-- Right side: Update & Delete buttons -->
+  <!-- Buttons -->
   <div class="flex space-x-2">
-    <!-- Update Button -->
+    <!-- Edit/Save Buttons -->
     <button
+      x-show="!editing"
+      @click="startEdit"
       class="px-3 py-1 text-sm font-medium text-white bg-yellow-500 rounded-lg hover:bg-yellow-600 transition"
-      hx-put="/todos/{{ id }}/update"
-      hx-target="#todo-list"
     >
       Edit
     </button>
+
+    <template x-if="editing">
+      <div class="flex space-x-2">
+        <button
+          type="submit"
+          form="todoUpdateForm"
+          class="px-3 py-1 text-sm font-medium text-white bg-green-500 rounded-lg hover:bg-green-600 transition"
+        >
+          Save
+        </button>
+        <button
+          @click="cancelEdit"
+          type="button"
+          class="px-3 py-1 text-sm font-medium text-white bg-gray-500 rounded-lg hover:bg-gray-600 transition"
+        >
+          Cancel
+        </button>
+      </div>
+    </template>
 
     <!-- Delete Button -->
     <button

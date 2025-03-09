@@ -33,7 +33,6 @@ pub async fn list(State(db_pool): State<SqlitePool>) -> impl IntoResponse {
 
 pub async fn get(State(db_pool): State<SqlitePool>, Path(id): Path<i64>) -> impl IntoResponse {
     let todo = controllers::todo::get(&db_pool, id).await;
-
     HtmlTemplate(todo.map_to())
 }
 
